@@ -1,6 +1,6 @@
 import { Row, Container } from "react-bootstrap";
-import ProductCarouselComponent from "../component/ProductCarouselComponent";
-import CategoryCardComponent from "../component/CategoryCardComponent";
+import ProductCarouselComponent from "../components/ProductCarouselComponent";
+import CategoryCardComponent from "../components/CategoryCardComponent";
 const HomePage = () => {
   const categories = [
     "Tablets",

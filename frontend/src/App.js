@@ -7,7 +7,7 @@ import RegisterPage from "./pages/RegisterPage";
 import UserProfilePage from "./pages/user/UserProfilePage";
 import UserOrderDetailsPage from "./pages/user/UserOrderDetailsPage";
 import UserCartDetailsPage from "./pages/user/UserCartDetailsPage";
-import ProtectedRoutesComponent from "./component/ProtectedRoutesComponent";
+import ProtectedRoutesComponent from "./components/ProtectedRoutesComponent";
 import AdminEditUserPage from "./pages/admin/AdminEditUserPage";
 import AdminProductsPage from "./pages/admin/AdminProductsPage";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
@@ -17,11 +17,11 @@ import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
 import AdminOrderDetailsPage from "./pages/admin/AdminOrderDetailsPage";
 import AdminChatsPage from "./pages/admin/AdminChatsPage";
 import AdminAnalyticsPage from "./pages/admin/AdminAnalyticsPage";
-import FooterComponent from "./component/FooterComponent";
-import HeaderComponent from "./component/HeaderComponent";
-import RoutesWithUserChatComponent from "./component/user/RoutesWithUserChatComponent";
+import FooterComponent from "./components/FooterComponent";
+import RoutesWithUserChatComponent from "./components/user/RoutesWithUserChatComponent";
 import UserOrdersPage from "./pages/user/UserOrdersPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import HeaderComponent from "./components/HeaderComponent";
 
 function App() {
   return (
