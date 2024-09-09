@@ -22,10 +22,12 @@ import RoutesWithUserChatComponent from "./components/user/RoutesWithUserChatCom
 import UserOrdersPage from "./pages/user/UserOrdersPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import HeaderComponent from "./components/HeaderComponent";
+import ScrollToTop from "./utils/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop />
       <HeaderComponent />
       <Routes>
         <Route element={<RoutesWithUserChatComponent />}>
