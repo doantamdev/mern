@@ -1,5 +1,5 @@
 const express = require('express');
-const connectDb = require('./config/db');  // Correct import
+const connectDb = require('./config/db');  
 
 const app = express();
 const port = 3000;
@@ -11,11 +11,24 @@ app.use((error, req, res, next) => {
     });
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+
+app.get('/', async (req, res, next) => {
+  const Product = require("./models/ProductModel")
+  try {
+      const product = new Product
+      product.name = "New product name"
+      const productSaved = await product.save()
+      console.log(productSaved === product)
+      const products = await Product.find()
+      console.log(products.length)
+      res.send("Product created " + product._id)
+  } catch(er) {
+      next(er)
+  }
+  // res.json({message: "API running..."})
+})
 
 app.listen(port, async () => {
-    await connectDb();  // Make sure this works after correct import
+    await connectDb();  
     console.log(`Example app listening on port ${port}`);
 });
