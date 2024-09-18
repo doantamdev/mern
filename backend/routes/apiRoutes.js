@@ -1,7 +1,13 @@
 const express = require('express')
-const router = express.Router()
-const getProducts = require('../controllers/productController')
+const app = express()
+const productRoutes = require("./productRoutes")
+const categoryRoutes = require("./categoryRoutes")
+const userRoutes = require("./userRoutes")
+const orderRoutes = require("./orderRoutes")
 
-router.get("/", getProducts)
+app.use("/products", productRoutes)
+app.use("/categories", categoryRoutes)
+app.use("/users", userRoutes)
+app.use("/orders", orderRoutes)
 
-module.exports = router
+module.exports = app
