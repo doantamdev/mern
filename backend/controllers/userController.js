@@ -157,6 +157,9 @@ const getUserProfile = async (req, res, next) => {
 
 const writeReview = async (req, res, next) => {
     try {
+
+        const session = await Review.startSession();
+
         // get comment, rating from request.body:
         const { comment, rating } = req.body;
         // validate request:
@@ -168,6 +171,7 @@ const writeReview = async (req, res, next) => {
         const ObjectId = require("mongodb").ObjectId;
         let reviewId = ObjectId();
 
+        session.startTransaction();
         await Review.create([
             {
                 _id: reviewId,
@@ -175,10 +179,17 @@ const writeReview = async (req, res, next) => {
                 rating: Number(rating),
                 user: { _id: req.user._id, name: req.user.name + " " + req.user.lastName },
             }
-        ])
+        ],{ session: session })
 
-        const product = await Product.findById(req.params.productId).populate("reviews");
-        // res.send(product)
+        const product = await Product.findById(req.params.productId).populate("reviews").session(session);
+        
+        const alreadyReviewed = product.reviews.find((r) => r.user._id.toString() === req.user._id.toString());
+        if (alreadyReviewed) {
+            await session.abortTransaction();
+            session.endSession();
+            return res.status(400).send("product already reviewed");
+        }
+
         let prc = [...product.reviews];
         prc.push({ rating: rating });
         product.reviews.push(reviewId);
@@ -191,11 +202,51 @@ const writeReview = async (req, res, next) => {
         }
         await product.save();
 
+        await session.commitTransaction();
+        session.endSession();
         res.send('review created')
     } catch (err) {
+        await session.abortTransaction();
         next(err)   
     }
 }
 
-module.exports = { getUsers, registerUser, loginUser, updateUserProfile, getUserProfile, writeReview };
+const getUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id).select("name lastName email isAdmin").orFail();
+        return res.send(user);
+    } catch (err) {
+       next(err); 
+    }
+}
+
+const updateUser = async (req, res, next) => {
+    try {
+       const user = await User.findById(req.params.id).orFail(); 
+
+        user.name = req.body.name || user.name;
+        user.lastName = req.body.lastName || user.lastName;
+        user.email = req.body.email || user.email;
+        user.isAdmin = req.body.isAdmin || user.isAdmin;
+
+        await user.save();
+
+        res.send("user updated");
+
+    } catch (err) {
+       next(err); 
+    }
+}
+
+const deleteUser = async (req, res, next) => {
+    try {
+       const user = await User.findById(req.params.id).orFail();
+       await user.remove(); 
+       res.send("user removed");
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = { getUsers, registerUser, loginUser, updateUserProfile, getUserProfile, writeReview, getUser, updateUser, deleteUser };
 

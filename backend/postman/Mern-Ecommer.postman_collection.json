@@ -1,0 +1,785 @@
+{
+	"info": {
+		"_postman_id": "9eaef61c-c5f1-413f-9b17-67edf636b3c5",
+		"name": "Mern-Ecommer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28260661"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}categories",
+							"host": [
+								"{{MERN_URLs}}categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category\" : \"Test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}categories",
+							"host": [
+								"{{MERN_URLs}}categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}categories/Test",
+							"host": [
+								"{{MERN_URLs}}categories"
+							],
+							"path": [
+								"Test"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Attribute",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"key\" : \"Size\",\r\n    \"val\" : \"27inch\",\r\n    \"categoryChoosen\" : \"Monitors\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}categories/attr",
+							"host": [
+								"{{MERN_URLs}}categories"
+							],
+							"path": [
+								"attr"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}products?pageNum=2&sort=price_-1&price=400&rating=3,4,5",
+							"host": [
+								"{{MERN_URLs}}products"
+							],
+							"query": [
+								{
+									"key": "pageNum",
+									"value": "2"
+								},
+								{
+									"key": "sort",
+									"value": "price_-1"
+								},
+								{
+									"key": "price",
+									"value": "400"
+								},
+								{
+									"key": "rating",
+									"value": "3,4,5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product with Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/products/category/Computers",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products",
+								"category",
+								"Computers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product with Multipe Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/products?category=Printers,Tablets",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "Printers,Tablets"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products with Attrs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/products?attrs=RAM-1 TB-2 TB,color-blue-red",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "attrs",
+									"value": "RAM-1 TB-2 TB,color-blue-red"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/products/search/Product",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products",
+								"search",
+								"Product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/products/get-one/66ec4322ccb3f5a876d241d6",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products",
+								"get-one",
+								"66ec4322ccb3f5a876d241d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/products/admin/66ec42fbccb3f5a876d241ce",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products",
+								"admin",
+								"66ec42fbccb3f5a876d241ce"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Apple\",\r\n    \"description\" : \"asdasd\",\r\n    \"count\" : 25,\r\n    \"price\" : 2333,\r\n    \"category\" : \"Laptop\",\r\n    \"attributesTable\" : [\r\n        {\"key\" : \"color\" , \"value\" : \"red\"},\r\n        {\"key\" : \"Ram\" , \"value\" : \"1 GB\"}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/products/admin/",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products",
+								"admin",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Apple 1\",\r\n    \"description\" : \"asdasd\",\r\n    \"count\" : 25,\r\n    \"price\" : 1111,\r\n    \"category\" : \"Laptop\",\r\n    \"attributesTable\" : [\r\n        {\"key\" : \"color\" , \"value\" : \"blue\"},\r\n        {\"key\" : \"Ram\" , \"value\" : \"8 GB\"}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/products/admin/66ec4322ccb3f5a876d241d6",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products",
+								"admin",
+								"66ec4322ccb3f5a876d241d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": "postman-cloud:///1eefd7e8-139c-4ea0-a323-3afdd7f21b93"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/products/admin/upload?productId=66ec4322ccb3f5a876d241d6",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products",
+								"admin",
+								"upload"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "66ec4322ccb3f5a876d241d6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Images",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/products/admin/image/path/23",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"products",
+								"admin",
+								"image",
+								"path",
+								"23"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/users",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"tamas\",\r\n    \"lastName\" : \"he\",\r\n    \"email\" : \"asd3@ccc.com\",\r\n    \"password\" : \"asd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/users/register",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"asd3@ccc.com\",\r\n    \"password\" : \"asd\",\r\n    \"doNotLogout\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/users/login",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"admin@admin.com\",\r\n    \"password\" : \"admin@admin.com\",\r\n    \"doNotLogout\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/users/login",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Tam\",\r\n    \"password\" : \"123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/users/profile",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/users/profile/66ed2b5373039811e0b73569",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users",
+								"profile",
+								"66ed2b5373039811e0b73569"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\" : \"test\",\r\n    \"rating\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/users/review/66ec4322ccb3f5a876d241d6",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users",
+								"review",
+								"66ec4322ccb3f5a876d241d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Admin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/users/66ed2b5373039811e0b73569",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users",
+								"66ed2b5373039811e0b73569"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User By Admin",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tam1\",\r\n    \"lastName\": \"he\",\r\n    \"email\": \"asd3@ccc.com\",\r\n    \"isAdmin\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/users/66ed2b5373039811e0b73569",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users",
+								"66ed2b5373039811e0b73569"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User By Admin",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Tam1\",\r\n    \"lastName\": \"he\",\r\n    \"email\": \"asd3@ccc.com\",\r\n    \"isAdmin\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/users/66ed2b5373039811e0b73569",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"users",
+								"66ed2b5373039811e0b73569"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Get Order By UserID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/orders/user/66eda305bc5dd856847579ec",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"orders",
+								"user",
+								"66eda305bc5dd856847579ec"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/orders",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartItems\":[ \r\n     {\r\n        \"name\" : \"asds\",\r\n        \"price\" :100,\r\n        \"image\" : {\"path\": \"asdsd\"},\r\n        \"quantity\" : 2,\r\n        \"count\" : 10,\r\n        \"productID\" : \"66e6adc9045bdce888ca55cf\"\r\n     }\r\n    ],\r\n    \"orderTotal\" : {\r\n        \"itemsCount\" : 2,\r\n        \"cartSubtotal\" : 120\r\n    },\r\n    \"paymentMethod\": \"Paypal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{MERN_URLs}}/orders",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order To Paid",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/orders/paid/66eda305bc5dd856847579ec",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"orders",
+								"paid",
+								"66eda305bc5dd856847579ec"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order To Delivered",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/orders/delivered/66eda305bc5dd856847579ec",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"orders",
+								"delivered",
+								"66eda305bc5dd856847579ec"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/orders/admin",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"orders",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order For Analysis",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{MERN_URLs}}/orders/analysis/2024-09-20",
+							"host": [
+								"{{MERN_URLs}}"
+							],
+							"path": [
+								"orders",
+								"analysis",
+								"2024-09-20"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"value": "",
+			"type": "string"
+		}
+	]
+}
