@@ -1,21 +1,22 @@
 import { Row, Col, Table, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import AdminLinksComponent from "../../../components/admin/AdminLinksComponent";
+
 import { useState, useEffect } from "react";
+
+import { logout } from "../../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
 
 const ProductsPageComponent = ({ fetchProducts, deleteProduct }) => {
   const [products, setProducts] = useState([]);
   const [productDeleted, setProductDeleted] = useState(false);
+  const dispatch = useDispatch();
 
   const deleteHandler = async (productId) => {
     if (window.confirm("Are you sure?")) {
-      try {
-        const data = await deleteProduct(productId);
-        if (data.message === "product removed") {
-          setProductDeleted(!productDeleted);
-        }
-      } catch (error) {
-        console.error("Error deleting product:", error);
+      const data = await deleteProduct(productId);
+      if (data.message === "product removed") {
+        setProductDeleted(!productDeleted);
       }
     }
   };
@@ -24,16 +25,12 @@ const ProductsPageComponent = ({ fetchProducts, deleteProduct }) => {
     const abctrl = new AbortController();
     fetchProducts(abctrl)
       .then((res) => setProducts(res))
-      .catch((er) => {
-        // Handle cases where error.response or error.response.data might be undefined
-        setProducts([
-          {
-            name:
-              er.response?.data?.message ??
-              "Error fetching products. Please try again later.",
-          },
-        ]);
-      });
+      .catch(
+        (er) => dispatch(logout())
+        // setProducts([
+        //   {name: er.response.data.message ? er.response.data.message : er.response.data}
+        // ])
+      );
     return () => abctrl.abort();
   }, [productDeleted]);
 
