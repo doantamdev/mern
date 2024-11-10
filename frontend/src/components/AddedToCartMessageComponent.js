@@ -1,25 +1,33 @@
-import { Alert, Button, Container } from "react-bootstrap";
-import { useState } from "react";
-import { Link } from "react-router-dom"
+import { Alert, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const AddedToCartMessageComponent = () => {
-  const [show, setShow] = useState(true);
+const AddedToCartMessageComponent = ({
+  showCartMessage,
+  setShowCartMessage,
+}) => {
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
-    <Container className="mt-2">
-   <Alert show={show} variant="success" onClose={() => setShow(false)} dismissible>
-      <Alert.Heading>Đã thêm sản phẩm vào giỏ hàng! </Alert.Heading>
+    <Alert
+      show={showCartMessage}
+      variant="success"
+      onClose={() => setShowCartMessage(false)}
+      dismissible
+    >
+      <Alert.Heading>The product was added to your cart!</Alert.Heading>
       <p>
-        <Button variant="success">
-            Trở về  
-        </Button> {" "}
+        <Button variant="success" onClick={goBack}>
+          Go back
+        </Button>{" "}
         <Link to="/cart">
-        <Button variant="danger">
-            Đi tới giỏ hàng
-        </Button>
-        </Link>   
+          <Button variant="danger">Go to cart</Button>
+        </Link>
       </p>
     </Alert>
-    </Container>
   );
 };
 
