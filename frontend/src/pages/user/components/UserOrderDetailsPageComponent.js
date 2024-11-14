@@ -8,10 +8,15 @@ import {
   Button,
 } from "react-bootstrap";
 import CartItemComponent from "../../../components/CartItemComponent";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 
-const UserOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
+const UserOrderDetailsPageComponent = ({
+  userInfo,
+  getUser,
+  getOrder,
+  loadPayPalScript,
+}) => {
   const [userAddress, setUserAddress] = useState({});
   const [paymentMethod, setPaymentMethod] = useState("");
   const [isPaid, setIsPaid] = useState(false);
@@ -20,6 +25,8 @@ const UserOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
   const [cartSubtotal, setCartSubtotal] = useState(0);
   const [isDelivered, setIsDelivered] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const paypalContainer = useRef();
 
   const { id } = useParams();
 
@@ -70,11 +77,18 @@ const UserOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
         "To pay for your order click one of the buttons below"
       );
       if (!isPaid) {
-        // to do: load PayPal script and do actions
+        loadPayPalScript(cartSubtotal, cartItems, id, updateStateAfterOrder);
       }
     } else {
       setOrderButtonMessage("Your order was placed. Thank you");
     }
+  };
+
+  const updateStateAfterOrder = (paidAt) => {
+    setOrderButtonMessage("Thank you for your payment!");
+    setIsPaid(paidAt);
+    setButtonDisabled(true);
+    paypalContainer.current.style = "display: none";
   };
 
   return (
@@ -157,6 +171,9 @@ const UserOrderDetailsPageComponent = ({ userInfo, getUser, getOrder }) => {
                 >
                   {orderButtonMessage}
                 </Button>
+              </div>
+              <div style={{ position: "relative", zIndex: 1 }}>
+                <div ref={paypalContainer} id="paypal-container-element"></div>
               </div>
             </ListGroup.Item>
           </ListGroup>
