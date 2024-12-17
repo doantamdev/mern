@@ -22,6 +22,7 @@ import {
   setChatRooms,
   setSocket,
   setMessageReceived,
+  removeChatRoom,
 } from "../redux/actions/chatActions";
 
 const HeaderComponent = () => {
@@ -67,14 +68,25 @@ const HeaderComponent = () => {
     if (userInfo.isAdmin) {
       var audio = new Audio("/audio/chat-msg.mp3");
       const socket = socketIOClient();
-      socket.on("server sends message from client to admin", ({ message }) => {
-        dispatch(setSocket(socket));
-        //   let chatRooms = {
-        //     fddf54gfgfSocketID: [{ "client": "dsfdf" }, { "client": "dsfdf" }, { "admin": "dsfdf" }],
-        //   };
-        dispatch(setChatRooms("exampleUser", message));
-        dispatch(setMessageReceived(true));
-        audio.play();
+      socket.emit(
+        "admin connected with server",
+        "Admin" + Math.floor(Math.random() * 1000000000000)
+      );
+      socket.on(
+        "server sends message from client to admin",
+        ({ user, message }) => {
+          dispatch(setSocket(socket));
+          //   let chatRooms = {
+          //     fddf54gfgfSocketID: [{ "client": "dsfdf" }, { "client": "dsfdf" }, { "admin": "dsfdf" }],
+          //   };
+          dispatch(setChatRooms(user, message));
+          dispatch(setMessageReceived(true));
+          audio.play();
+        }
+      );
+      socket.on("disconnected", ({ reason, socketId }) => {
+        //   console.log(socketId, reason)
+        dispatch(removeChatRoom(socketId));
       });
       return () => socket.disconnect();
     }

@@ -12,14 +12,21 @@ const UserChatComponent = () => {
   //   ]
   const [chat, setChat] = useState([]);
   const [messageReceived, setMessageReceived] = useState(false);
+  const [chatConnectionInfo, setChatConnectionInfo] = useState(false);
+  const [reconnect, setReconnect] = useState(false);
 
   const userInfo = useSelector((state) => state.userRegisterLogin.userInfo);
 
   useEffect(() => {
     if (!userInfo.isAdmin) {
+      setReconnect(false);
       var audio = new Audio("/audio/chat-msg.mp3");
       const socket = socketIOClient();
-      setSocket(socket);
+      socket.on("no admin", (msg) => {
+        setChat((chat) => {
+          return [...chat, { admin: "no admin here now" }];
+        });
+      });
       socket.on("server sends message from admin to client", (msg) => {
         setChat((chat) => {
           return [...chat, { admin: msg }];
@@ -29,14 +36,23 @@ const UserChatComponent = () => {
         const chatMessages = document.querySelector(".cht-msg");
         chatMessages.scrollTop = chatMessages.scrollHeight;
       });
+      setSocket(socket);
+      socket.on("admin closed chat", () => {
+        setChat([]);
+        setChatConnectionInfo(
+          "Admin closed chat. Type something and submit to reconnect"
+        );
+        setReconnect(true);
+      });
       return () => socket.disconnect();
     }
-  }, [userInfo.isAdmin]);
+  }, [userInfo.isAdmin, reconnect]);
 
   const clientSubmitChatMsg = (e) => {
     if (e.keyCode && e.keyCode !== 13) {
       return;
     }
+    setChatConnectionInfo("");
     setMessageReceived(false);
     const msg = document.getElementById("clientChatMsg");
     let v = msg.value.trim();
@@ -72,6 +88,7 @@ const UserChatComponent = () => {
         </div>
         <div className="chat-form">
           <div className="cht-msg">
+            <p>{chatConnectionInfo}</p>
             {chat.map((item, id) => (
               <div key={id}>
                 {item.client && (
